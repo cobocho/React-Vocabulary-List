@@ -52,7 +52,7 @@ const title = (props) => {
             <strong>{props.count}</strong>
           </div>
         </div>
-        <PlusButton />
+        <PlusButton onClick={props.onClick} />
       </TitleBox>
     </Fragment>
   );

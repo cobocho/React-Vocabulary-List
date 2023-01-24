@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import ChaptersGenerator from "./ChapterGenerator";
 import ChaptersHeader from "./ChaptersHeader";
 
 const ChaptersBox = styled.aside`
@@ -6,9 +8,14 @@ const ChaptersBox = styled.aside`
 `;
 
 const Chapters = () => {
+  const isAddModeOn = useSelector((state) => state.chapter.addMode);
+
+  console.log(isAddModeOn);
+
   return (
     <ChaptersBox>
       <ChaptersHeader />
+      {isAddModeOn && <ChaptersGenerator />}
     </ChaptersBox>
   );
 };
