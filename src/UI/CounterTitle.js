@@ -33,7 +33,9 @@ const TitleBox = styled.div`
     background-color: #000000;
   }
 
-  strong {
+  .counter strong {
+    position: relative;
+    top: 1px;
     font-size: 12px;
     line-height: 16px;
     color: #ffffff;
