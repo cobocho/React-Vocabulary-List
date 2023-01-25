@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const VocaHeader = styled.h1`
@@ -8,7 +9,15 @@ const VocaHeader = styled.h1`
 `;
 
 const Header = () => {
-  return <VocaHeader>MY VOCA</VocaHeader>;
+  const navigate = useNavigate();
+  const onClickHandler = () => {
+    navigate("/", { replace: true });
+  };
+  return (
+    <header onClick={onClickHandler}>
+      <VocaHeader>MY VOCA</VocaHeader>
+    </header>
+  );
 };
 
 export default Header;
