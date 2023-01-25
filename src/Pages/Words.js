@@ -5,6 +5,7 @@ import styled from "styled-components";
 import PlusButton from "../Components/UI/Buttons/PlusButton";
 import CounterTitle from "../Components/UI/CounterTitle";
 import Word from "../Components/Words/Word";
+import NotFound from "./NotFound";
 
 const HeaderBox = styled.header`
   display: flex;
@@ -27,6 +28,14 @@ const ChapterWords = () => {
   const { chapter } = useParams();
 
   const chapters = useSelector((state) => state.chapter.chapters);
+
+  const existentChapter = chapters.some((chapterItem, idx) => {
+    return chapterItem.title === chapter;
+  });
+
+  if (!existentChapter) {
+    return <NotFound />;
+  }
 
   const words = chapters.filter((chapterItem) => {
     return chapterItem.title === chapter;
