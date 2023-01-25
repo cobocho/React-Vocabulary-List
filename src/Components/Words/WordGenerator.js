@@ -8,6 +8,9 @@ import BasicButton from "../UI/Buttons/BasicButton";
 import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import WordPartsSelector from "./WordPartsSelector";
+import { useDispatch, useSelector } from "react-redux";
+import { chapterActions } from "../../store/chapter-slice";
+import { wordActions } from "../../store/word-slice";
 
 const WordGeneratorCard = styled(Card)`
   position: relative;
@@ -54,33 +57,71 @@ const WordGeneratorCard = styled(Card)`
   }
 `;
 
-const WordGenerator = (props) => {
+const WordGenerator = () => {
   const wordRef = useRef();
   const meaningRef = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { chapter } = useParams();
 
-  const onWordGeneratorCloseHandler = () => {
+  const wordGeneratorCloseHandler = () => {
     navigate(`/${chapter}`, { replace: true });
+  };
+
+  const wordChangeHandler = () => {
+    const enteredWord = wordRef.current.value;
+    dispatch(wordActions.setEnteredWord(enteredWord));
+  };
+
+  const meaningChangeHandler = () => {
+    const enteredMeaning = meaningRef.current.value;
+    dispatch(wordActions.setEnteredMeaning(enteredMeaning));
+  };
+
+  const title = useParams().chapter;
+  const word = useSelector((state) => state.word.enterdWord);
+  const meaning = useSelector((state) => state.word.enterdMeaning);
+  const part = useSelector((state) => state.word.selectedPart);
+
+  const addWordHandler = () => {
+    const addedWord = {
+      word: word,
+      meaning: meaning,
+      part: part,
+      finished: false,
+    };
+    dispatch(chapterActions.addWord({ title, addedWord }));
   };
 
   return (
     <WordGeneratorCard>
       <CloseButton
         className="word-generator-close-btn"
-        onClick={onWordGeneratorCloseHandler}
+        onClick={wordGeneratorCloseHandler}
       />
       <form className="word-generator-form">
         <div className="word-generator-inputs">
           <label htmlFor="added-word">단어</label>
-          <UserInput ref={wordRef} type="text" id="added-word" />
+          <UserInput
+            onChange={wordChangeHandler}
+            ref={wordRef}
+            type="text"
+            id="added-word"
+          />
           <label htmlFor="added-word-meaning">의미</label>
-          <UserInput ref={meaningRef} type="text" id="added-word-meaning" />
+          <UserInput
+            onChange={meaningChangeHandler}
+            ref={meaningRef}
+            type="text"
+            id="added-word-meaning"
+          />
         </div>
         <WordPartsSelector />
       </form>
-      <BasicButton id="added-word-btn">ADD</BasicButton>
+      <BasicButton onClick={addWordHandler} id="added-word-btn">
+        ADD
+      </BasicButton>
     </WordGeneratorCard>
   );
 };

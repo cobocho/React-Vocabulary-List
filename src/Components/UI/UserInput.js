@@ -21,6 +21,7 @@ const UserInput = forwardRef((props, ref) => {
       max={props.max}
       min={props.min}
       id={props.id}
+      onChange={props.onChange}
     ></Input>
   );
 });

@@ -13,11 +13,21 @@ const wordSlice = createSlice({
       { type: "conjunction", desc: "접속사" },
       { type: "interjection", desc: "감탄사" },
     ],
+    enterdWord: "",
+    enterdMeaning: "",
     selectedPart: null,
   },
   reducers: {
     setSelectedPart: (state, action) => {
       state.selectedPart = action.payload;
+    },
+
+    setEnteredWord: (state, action) => {
+      state.enterdWord = action.payload;
+    },
+
+    setEnteredMeaning: (state, action) => {
+      state.enterdMeaning = action.payload;
     },
   },
 });

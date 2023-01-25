@@ -8,7 +8,7 @@ import { chapterActions } from "../../store/chapter-slice";
 
 const ChaptersBox = styled.aside`
   display: inline-block;
-  width: 300px;
+  min-width: 300px;
 `;
 
 const Chapters = ({ className }) => {

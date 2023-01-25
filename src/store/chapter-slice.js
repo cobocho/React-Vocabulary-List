@@ -49,7 +49,9 @@ const chapterSlice = createSlice({
     addWord: (state, action) => {
       for (const chapter of state.chapters) {
         if (chapter.title === action.payload.title) {
-          chapter.words.push(action.payload);
+          chapter.words.push(action.payload.addedWord);
+          chapter.amount++;
+          localStorage.setItem("chapters", JSON.stringify(state.chapters));
           break;
         }
       }
