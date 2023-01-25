@@ -1,18 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
+import title from "../Components/UI/CounterTitle";
 
 const chapterSlice = createSlice({
   name: "chapter",
   initialState: {
     addMode: false,
+    chapters: [],
   },
   reducers: {
     setAddMode: (state) => {
       state.addMode = true;
-      console.log("chapter add mode");
     },
+
     clearAddMode: (state) => {
       state.addMode = false;
-      console.log("chapter add mode");
+    },
+
+    setChapters: (state, action) => {
+      state.chapters = action.payload;
+    },
+
+    addChapter: (state, action) => {
+      state.chapters.push({
+        title: action.payload,
+        words: [],
+        amount: 0,
+        finished: 0,
+      });
+      localStorage.setItem("chapters", JSON.stringify(state.chapters));
+    },
+
+    changeChapterTtile: (state, action) => {
+      for (const chapter of state.chapters) {
+        if (chapter.title === action.payload.existingTitle) {
+          chapter.title = action.payload.changedTitle;
+          break;
+        }
+      }
+      localStorage.setItem("chapters", JSON.stringify(state.chapters));
+    },
+
+    deleteChapter: (state, action) => {
+      state.chapters = state.chapters.filter((chapter) => {
+        return chapter.title !== action.payload;
+      });
+      localStorage.setItem("chapters", JSON.stringify(state.chapters));
     },
   },
 });

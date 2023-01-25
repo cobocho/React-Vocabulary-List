@@ -14,6 +14,7 @@ const ChaptersGeneratorCard = styled(Card)`
   padding: 14px 20px;
   max-width: 300px;
   height: 160px;
+  margin-bottom: 16px;
 
   label {
     display: block;
@@ -40,8 +41,8 @@ const ChaptersGenerator = (props) => {
 
   const onAddChapterHandler = (event) => {
     event.preventDefault();
-    const addedChapter = inputRef.current.value;
-    console.log(addedChapter);
+    dispatch(chapterActions.addChapter(inputRef.current.value));
+    inputRef.current.value = "";
   };
 
   const onCloseChaptersGenerator = () => {

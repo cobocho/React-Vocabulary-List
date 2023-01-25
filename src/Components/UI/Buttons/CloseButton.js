@@ -7,9 +7,9 @@ const Button = styled.button`
   background-color: transparent;
 `;
 
-const CloseButton = ({ onClick, id }) => {
+const CloseButton = ({ onClick, id, className }) => {
   return (
-    <Button id={id} onClick={onClick}>
+    <Button className={className} id={id} onClick={onClick}>
       x
     </Button>
   );
