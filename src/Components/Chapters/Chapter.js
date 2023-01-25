@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { chapterActions } from "../../store/chapter-slice";
 import BasicButton from "../UI/Buttons/BasicButton";
@@ -44,12 +44,6 @@ const ChapterCard = styled(Card)`
 const Chapter = ({ title, finished, amount }) => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
-  const onChapterClick = () => {
-    navigate(`${title}`);
-  };
-
   const onDeleteChapter = (event) => {
     event.stopPropagation();
     dispatch(chapterActions.deleteChapter(title));
@@ -69,17 +63,22 @@ const Chapter = ({ title, finished, amount }) => {
 
   return (
     <li>
-      <ChapterCard onClick={onChapterClick}>
-        <CloseButton onClick={onDeleteChapter} className="chapter-delete-btn" />
-        <h2>{title}</h2>
-        <strong>
-          {finished} / {amount}
-        </strong>
-        <div className="chapter-btns">
-          <BasicButton onClick={onEditChapter}>수정</BasicButton>
-          <BasicButton onClick={onTestChapter}>테스트</BasicButton>
-        </div>
-      </ChapterCard>
+      <Link to={title}>
+        <ChapterCard>
+          <CloseButton
+            onClick={onDeleteChapter}
+            className="chapter-delete-btn"
+          />
+          <h2>{title}</h2>
+          <strong>
+            {finished} / {amount}
+          </strong>
+          <div className="chapter-btns">
+            <BasicButton onClick={onEditChapter}>수정</BasicButton>
+            <BasicButton onClick={onTestChapter}>테스트</BasicButton>
+          </div>
+        </ChapterCard>
+      </Link>
     </li>
   );
 };
