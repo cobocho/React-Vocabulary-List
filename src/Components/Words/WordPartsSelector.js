@@ -21,6 +21,8 @@ const PartsBox = styled.div`
   .selected {
     background-color: #c6c6c6;
     color: #ffffff;
+    box-shadow: inset -4px -4px 4px rgba(0, 0, 0, 0.1),
+      inset 4px 4px 4px rgba(0, 0, 0, 0.1);
   }
 `;
 
