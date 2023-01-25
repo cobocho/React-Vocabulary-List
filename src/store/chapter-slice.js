@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import title from "../Components/UI/CounterTitle";
 
 const chapterSlice = createSlice({
   name: "chapter",
