@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { chapterActions } from "../../store/chapter-slice";
 
 const ChaptersBox = styled.aside`
+  display: inline-block;
   width: 300px;
 `;
 

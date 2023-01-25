@@ -45,6 +45,15 @@ const chapterSlice = createSlice({
       });
       localStorage.setItem("chapters", JSON.stringify(state.chapters));
     },
+
+    addWord: (state, action) => {
+      for (const chapter of state.chapters) {
+        if (chapter.title === action.payload.title) {
+          chapter.words.push(action.payload);
+          break;
+        }
+      }
+    },
   },
 });
 

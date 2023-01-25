@@ -5,3 +5,13 @@ main {
 .chapters {
   margin-right: 60px;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#container {
+  display: flex;
+}

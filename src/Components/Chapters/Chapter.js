@@ -47,7 +47,7 @@ const Chapter = ({ title, finished, amount }) => {
   const navigate = useNavigate();
 
   const onChapterClick = () => {
-    navigate(title);
+    navigate(`${title}`);
   };
 
   const onDeleteChapter = (event) => {

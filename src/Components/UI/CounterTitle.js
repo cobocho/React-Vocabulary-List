@@ -1,8 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
 
-import PlusButton from "./Buttons/PlusButton";
-
 const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
