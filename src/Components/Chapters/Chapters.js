@@ -10,7 +10,7 @@ const ChaptersBox = styled.aside`
   width: 300px;
 `;
 
-const Chapters = () => {
+const Chapters = ({ className }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Chapters = () => {
   }
 
   return (
-    <ChaptersBox>
+    <ChaptersBox className={className}>
       <ChaptersHeader />
       {isAddModeOn && <ChaptersGenerator />}
       <ul>{ChapterList}</ul>

@@ -5,6 +5,7 @@ const Button = styled.button`
   font-size: 40px;
   color: #a9a9a9;
   background-color: transparent;
+  padding: 0;
 `;
 
 const PlusButton = ({ onClick }) => {

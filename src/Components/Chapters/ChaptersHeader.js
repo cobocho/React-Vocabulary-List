@@ -1,6 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { chapterActions } from "../../store/chapter-slice";
-import Title from "../UI/CounterTitle";
+import PlusButton from "../UI/Buttons/PlusButton";
+import CounterTitle from "../UI/CounterTitle";
+
+const HeaderBox = styled.header`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const ChaptersHeader = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +19,10 @@ const ChaptersHeader = (props) => {
   const counter = useSelector((state) => state.chapter.chapters.length);
 
   return (
-    <Title title={"Chapters"} count={counter} onClick={onChapterAddMode} />
+    <HeaderBox>
+      <CounterTitle title={"Chapters"} count={counter} />
+      <PlusButton onClick={onChapterAddMode} />
+    </HeaderBox>
   );
 };
 

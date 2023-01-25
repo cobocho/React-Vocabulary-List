@@ -5,14 +5,18 @@ import Header from "./Components/Header/Header";
 import Chapters from "./Components/Chapters/Chapters";
 import { Fragment } from "react";
 
+import Words from "./Pages/Words";
+
 function App() {
   return (
     <Fragment>
       <Header />
-      <Chapters />
-      <Routes>
-        <></>
-      </Routes>
+      <main>
+        <Chapters className="chapters" />
+        <Routes>
+          <Route path="/:chapter" element={<Words />} />
+        </Routes>
+      </main>
     </Fragment>
   );
 }

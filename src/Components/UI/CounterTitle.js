@@ -42,7 +42,7 @@ const TitleBox = styled.div`
   }
 `;
 
-const title = (props) => {
+const CounterTitle = (props) => {
   return (
     <Fragment>
       <TitleBox>
@@ -52,10 +52,9 @@ const title = (props) => {
             <strong>{props.count}</strong>
           </div>
         </div>
-        <PlusButton onClick={props.onClick} />
       </TitleBox>
     </Fragment>
   );
 };
 
-export default title;
+export default CounterTitle;

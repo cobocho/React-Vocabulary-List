@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { chapterActions } from "../../store/chapter-slice";
 import BasicButton from "../UI/Buttons/BasicButton";
@@ -43,24 +44,32 @@ const ChapterCard = styled(Card)`
 const Chapter = ({ title, finished, amount }) => {
   const dispatch = useDispatch();
 
-  const onDeleteChapter = () => {
+  const navigate = useNavigate();
+
+  const onChapterClick = () => {
+    navigate(title);
+  };
+
+  const onDeleteChapter = (event) => {
+    event.stopPropagation();
     dispatch(chapterActions.deleteChapter(title));
   };
 
-  const onEditChapter = () => {
+  const onEditChapter = (event) => {
+    event.stopPropagation();
     const changedTitle = prompt("수정할 타이틀");
     dispatch(
       chapterActions.changeChapterTtile({ existingTitle: title, changedTitle })
     );
   };
 
-  const onTestChapter = () => {
-    console.log("test");
+  const onTestChapter = (event) => {
+    event.stopPropagation();
   };
 
   return (
     <li>
-      <ChapterCard>
+      <ChapterCard onClick={onChapterClick}>
         <CloseButton onClick={onDeleteChapter} className="chapter-delete-btn" />
         <h2>{title}</h2>
         <strong>
