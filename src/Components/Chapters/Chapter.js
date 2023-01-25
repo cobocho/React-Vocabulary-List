@@ -1,10 +1,16 @@
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { chapterActions } from "../../store/chapter-slice";
 import BasicButton from "../UI/Buttons/BasicButton";
 import CloseButton from "../UI/Buttons/CloseButton";
 import Card from "../UI/Card";
+
+const ChapterBox = styled.li`
+  a.selected div {
+    background-color: #eeeeee;
+  }
+`;
 
 const ChapterCard = styled(Card)`
   position: relative;
@@ -62,8 +68,11 @@ const Chapter = ({ title, finished, amount }) => {
   };
 
   return (
-    <li>
-      <Link to={title}>
+    <ChapterBox>
+      <NavLink
+        to={title}
+        className={({ isActive }) => (isActive ? "selected" : "")}
+      >
         <ChapterCard>
           <CloseButton
             onClick={onDeleteChapter}
@@ -78,8 +87,8 @@ const Chapter = ({ title, finished, amount }) => {
             <BasicButton onClick={onTestChapter}>테스트</BasicButton>
           </div>
         </ChapterCard>
-      </Link>
-    </li>
+      </NavLink>
+    </ChapterBox>
   );
 };
 
