@@ -63,6 +63,7 @@ const chapterSlice = createSlice({
           chapter.words = chapter.words.filter(
             (wordItem) => wordItem.word !== action.payload.word
           );
+          chapter.amount--;
           break;
         }
       }
