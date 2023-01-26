@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -23,7 +23,7 @@ const ShowButton = styled.button`
   color: ${(props) => props.color};
 
   border: none;
-  background-color: none;
+  background-color: transparent;
 
   strong {
     position: relative;
