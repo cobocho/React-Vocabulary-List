@@ -1,12 +1,6 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PlusButton from "../Components/UI/Buttons/PlusButton";
 import CounterTitle from "../Components/UI/CounterTitle";
@@ -26,9 +20,6 @@ const WordList = styled.section`
 
 const ChapterWords = () => {
   const navigate = useNavigate();
-  console.log(useLocation());
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const { search } = useLocation();
 

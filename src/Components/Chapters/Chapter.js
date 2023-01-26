@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { chapterActions } from "../../store/chapter-slice";
 import BasicButton from "../UI/Buttons/BasicButton";
@@ -55,12 +55,17 @@ const Chapter = ({ title, finished, amount }) => {
     dispatch(chapterActions.deleteChapter(title));
   };
 
+  const { search } = useLocation();
+  const navigate = useNavigate();
+
   const onEditChapter = (event) => {
     event.stopPropagation();
+    event.preventDefault();
     const changedTitle = prompt("수정할 타이틀");
     dispatch(
       chapterActions.changeChapterTtile({ existingTitle: title, changedTitle })
     );
+    navigate(`${changedTitle}${search}`);
   };
 
   const onTestChapter = (event) => {
