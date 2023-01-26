@@ -12,8 +12,8 @@ const HeaderBox = styled.header`
 const ChaptersHeader = (props) => {
   const dispatch = useDispatch();
 
-  const onChapterAddMode = () => {
-    dispatch(chapterActions.setAddMode());
+  const clickChapterAddButtonHandler = () => {
+    dispatch(chapterActions.toggleAddMode());
   };
 
   const counter = useSelector((state) => state.chapter.chapters.length);
@@ -21,7 +21,7 @@ const ChaptersHeader = (props) => {
   return (
     <HeaderBox>
       <CounterTitle title={"Chapters"} count={counter} />
-      <PlusButton onClick={onChapterAddMode} />
+      <PlusButton onClick={clickChapterAddButtonHandler} />
     </HeaderBox>
   );
 };

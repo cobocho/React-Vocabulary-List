@@ -7,8 +7,8 @@ const chapterSlice = createSlice({
     chapters: [],
   },
   reducers: {
-    setAddMode: (state) => {
-      state.addMode = true;
+    toggleAddMode: (state) => {
+      state.addMode = !state.addMode;
     },
 
     clearAddMode: (state) => {

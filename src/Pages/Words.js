@@ -21,15 +21,18 @@ const WordList = styled.section`
 const ChapterWords = () => {
   const navigate = useNavigate();
 
-  const { search } = useLocation();
-
-  const addWordHandler = () => {
-    navigate(`edit${search}`);
-  };
+  const { search, pathname } = useLocation();
 
   const { chapter } = useParams();
 
   const chapters = useSelector((state) => state.chapter.chapters);
+
+  const isAddMode = pathname.split("/").includes("edit");
+
+  const clickAddWordButtonHandler = () => {
+    if (isAddMode) navigate(`/${chapter}`);
+    else navigate(`edit${search}`);
+  };
 
   const existentChapter = chapters.some((chapterItem) => {
     return chapterItem.title === chapter;
@@ -49,7 +52,7 @@ const ChapterWords = () => {
     <Fragment>
       <HeaderBox>
         <CounterTitle count={wordCounter} title={"Words"} />
-        {<PlusButton onClick={addWordHandler} />}
+        {<PlusButton onClick={clickAddWordButtonHandler} />}
       </HeaderBox>
       <Outlet />
       <WordList>
