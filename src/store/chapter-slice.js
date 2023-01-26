@@ -56,6 +56,36 @@ const chapterSlice = createSlice({
         }
       }
     },
+
+    deleteWord: (state, action) => {
+      for (const chapter of state.chapters) {
+        if (chapter.title === action.payload.title) {
+          chapter.words = chapter.words.filter(
+            (wordItem) => wordItem.word !== action.payload.word
+          );
+          break;
+        }
+      }
+      localStorage.setItem("chapters", JSON.stringify(state.chapters));
+    },
+
+    toggleFinish: (state, action) => {
+      for (const chapter of state.chapters) {
+        if (chapter.title === action.payload.title) {
+          for (const wordItem of chapter.words) {
+            if (wordItem.word === action.payload.word) {
+              wordItem.finished = !wordItem.finished;
+              chapter.finished = chapter.words.reduce(
+                (acc, word) => acc + (word.finished ? 1 : 0),
+                0
+              );
+              return;
+            }
+          }
+        }
+      }
+      localStorage.setItem("chapters", JSON.stringify(state.chapters));
+    },
   },
 });
 

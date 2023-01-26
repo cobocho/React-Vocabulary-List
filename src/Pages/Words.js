@@ -29,7 +29,7 @@ const ChapterWords = () => {
 
   const chapters = useSelector((state) => state.chapter.chapters);
 
-  const existentChapter = chapters.some((chapterItem, idx) => {
+  const existentChapter = chapters.some((chapterItem) => {
     return chapterItem.title === chapter;
   });
 
@@ -50,8 +50,16 @@ const ChapterWords = () => {
       <Outlet />
       <WordList>
         {words[0] &&
-          words[0].words.map((item) => {
-            return <Word key={item.word} />;
+          words[0].words.map(({ word, meaning, part, finished }) => {
+            return (
+              <Word
+                key={word}
+                word={word}
+                meaning={meaning}
+                part={part}
+                finished={finished}
+              />
+            );
           })}
       </WordList>
     </Fragment>
