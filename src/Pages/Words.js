@@ -1,6 +1,12 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styled from "styled-components";
 import PlusButton from "../Components/UI/Buttons/PlusButton";
 import CounterTitle from "../Components/UI/CounterTitle";
@@ -20,9 +26,14 @@ const WordList = styled.section`
 
 const ChapterWords = () => {
   const navigate = useNavigate();
+  console.log(useLocation());
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { search } = useLocation();
 
   const addWordHandler = () => {
-    navigate(`edit`);
+    navigate(`edit${search}`);
   };
 
   const { chapter } = useParams();
@@ -39,18 +50,20 @@ const ChapterWords = () => {
 
   const words = chapters.filter((chapterItem) => {
     return chapterItem.title === chapter;
-  });
+  })[0];
+
+  const wordCounter = words.words.length - words.finished;
 
   return (
     <Fragment>
       <HeaderBox>
-        <CounterTitle count={words.length} title={"Words"} />
+        <CounterTitle count={wordCounter} title={"Words"} />
         {<PlusButton onClick={addWordHandler} />}
       </HeaderBox>
       <Outlet />
       <WordList>
-        {words[0] &&
-          words[0].words.map(({ word, meaning, part, finished }) => {
+        {words &&
+          words.words.map(({ word, meaning, part, finished }) => {
             return (
               <Word
                 key={word}

@@ -70,7 +70,7 @@ const Chapter = ({ title, finished, amount }) => {
   return (
     <ChapterBox>
       <NavLink
-        to={title}
+        to={`${title}?show-all=false`}
         className={({ isActive }) => (isActive ? "selected" : "")}
       >
         <ChapterCard>

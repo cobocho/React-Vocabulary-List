@@ -6,7 +6,7 @@ import styled from "styled-components";
 import CloseButton from "../UI/Buttons/CloseButton";
 import BasicButton from "../UI/Buttons/BasicButton";
 import { useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import WordPartsSelector from "./WordPartsSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { chapterActions } from "../../store/chapter-slice";
@@ -65,8 +65,10 @@ const WordGenerator = () => {
 
   const { chapter } = useParams();
 
+  const { search } = useLocation();
+
   const wordGeneratorCloseHandler = () => {
-    navigate(`/${chapter}`, { replace: true });
+    navigate(`/${chapter}${search}`);
   };
 
   const wordChangeHandler = () => {
