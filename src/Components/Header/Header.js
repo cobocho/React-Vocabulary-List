@@ -1,11 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const VocaHeader = styled.h1`
-  font-size: 72px;
-  color: black;
-  letter-spacing: -0.05em;
-  margin-bottom: 18px;
+const VocaHeader = styled.header`
+  h1 {
+    display: inline;
+    font-size: 72px;
+    color: black;
+    letter-spacing: -0.05em;
+    margin-bottom: 18px;
+  }
+
+  h1:hover {
+    cursor: pointer;
+  }
 `;
 
 const Header = () => {
@@ -14,9 +21,9 @@ const Header = () => {
     navigate("/", { replace: true });
   };
   return (
-    <header onClick={onClickHandler}>
-      <VocaHeader>MY VOCA</VocaHeader>
-    </header>
+    <VocaHeader>
+      <h1 onClick={onClickHandler}>MY VOCA</h1>
+    </VocaHeader>
   );
 };
 
