@@ -80,12 +80,12 @@ const chapterSlice = createSlice({
                 (acc, word) => acc + (word.finished ? 1 : 0),
                 0
               );
+              localStorage.setItem("chapters", JSON.stringify(state.chapters));
               return;
             }
           }
         }
       }
-      localStorage.setItem("chapters", JSON.stringify(state.chapters));
     },
   },
 });
