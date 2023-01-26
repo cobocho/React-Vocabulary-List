@@ -16,6 +16,7 @@ const wordSlice = createSlice({
     enterdWord: "",
     enterdMeaning: "",
     selectedPart: null,
+    showFinishedWords: true,
   },
   reducers: {
     setSelectedPart: (state, action) => {
@@ -28,6 +29,10 @@ const wordSlice = createSlice({
 
     setEnteredMeaning: (state, action) => {
       state.enterdMeaning = action.payload;
+    },
+
+    toggleShowFinishedWords: (state) => {
+      state.showFinishedWords = !state.showFinishedWords;
     },
   },
 });
