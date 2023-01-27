@@ -22,9 +22,11 @@ const ProgressBarBackground = styled.div`
 
 const ProgressBarFill = styled(ProgressBarBackground)`
   width: ${(props) => props.percent};
-  height: 20px;
+  height: 100%;
   border-radius: 12px;
   background-color: #000000;
+
+  transition: width 1s ease-in-out;
 `;
 
 const ProgressBar = ({ progress, entire }) => {
