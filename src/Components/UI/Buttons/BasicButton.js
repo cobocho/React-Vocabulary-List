@@ -10,13 +10,14 @@ const Button = styled.button`
   padding: 0;
 
   &:hover {
+    cursor: pointer;
     background-color: #a0a0a0;
   }
 `;
 
-const BasicButton = ({ id, className, onClick, children }) => {
+const BasicButton = ({ id, className, onClick, children, value }) => {
   return (
-    <Button id={id} className={className} onClick={onClick}>
+    <Button value={value} id={id} className={className} onClick={onClick}>
       {children}
     </Button>
   );

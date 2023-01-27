@@ -9,6 +9,8 @@ import Words from "./Pages/Words";
 import WordGenerator from "./Components/Words/WordGenerator";
 import NotFound from "./Pages/NotFound";
 import Home from "./Pages/Home";
+import Test from "./Pages/Test";
+import TestSelect from "./Pages/TestSelect";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/:chapter" element={<Words />}>
               <Route path="edit" element={<WordGenerator />} />
             </Route>
+            <Route path="/:chapter/test" element={<Test />} />
+            <Route path="/:chapter/test/select" element={<TestSelect />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

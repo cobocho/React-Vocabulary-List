@@ -70,6 +70,8 @@ const Chapter = ({ title, finished, amount }) => {
 
   const onTestChapter = (event) => {
     event.stopPropagation();
+    event.preventDefault();
+    navigate(`${title}/test/select`);
   };
 
   return (
