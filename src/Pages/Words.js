@@ -1,11 +1,16 @@
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styled from "styled-components";
 import PlusButton from "../Components/UI/Buttons/PlusButton";
 import CounterTitle from "../Components/UI/CounterTitle";
 import WordList from "../Components/Words/WordsList";
-import { wordActions } from "../store/word-slice";
 import NotFound from "./NotFound";
 
 const HeaderBox = styled.header`
@@ -42,20 +47,22 @@ const ChapterWords = () => {
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
   const { chapter } = useParams();
-  const showAllMode = useSelector((state) => state.word.showFinishedWords);
+
   const chapters = useSelector((state) => state.chapter.chapters);
   const isAddMode = pathname.split("/").includes("edit");
   const wordsData = chapters.filter((chapterItem) => {
     return chapterItem.title === chapter;
   })[0];
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const clickAddWordButtonHandler = () => {
-    if (isAddMode) navigate(`/${chapter}`);
+    if (isAddMode) navigate(`/${chapter}${search}`);
     else navigate(`edit${search}`);
   };
 
+  const isShowAll = JSON.parse(searchParams.get("showAll"));
+
   const toggleShowHandler = () => {
-    dispatch(wordActions.toggleShowFinishedWords());
+    setSearchParams({ showAll: !isShowAll });
   };
 
   const existentChapter = chapters.some((chapterItem) => {
@@ -70,7 +77,7 @@ const ChapterWords = () => {
 
   let filteredWord = [...wordsData.words];
 
-  if (!showAllMode) {
+  if (!isShowAll) {
     filteredWord = wordsData.words.filter((word) => !word.finished);
   }
 
@@ -80,7 +87,7 @@ const ChapterWords = () => {
         <CounterTitle count={wordCounter} title={"Words"} />
         <ShowButton
           onClick={toggleShowHandler}
-          color={showAllMode ? "#939393" : "#D4D4D4"}
+          color={isShowAll ? "#939393" : "#D4D4D4"}
         >
           <p>Show Finished Word</p>
           <strong>✓</strong>
