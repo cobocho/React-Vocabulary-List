@@ -4,7 +4,7 @@ import styled from "styled-components";
 import BasicButton from "../Components/UI/Buttons/BasicButton";
 import Card from "../Components/UI/Card";
 
-const TestCard = styled(Card)`
+const TestSelectCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -104,7 +104,7 @@ const TestSelect = () => {
 
   const includes = [
     { includes: "includes", desc: "완료 단어 포함" },
-    { includes: "notIncludes", desc: "완료 단어 미포함" },
+    { includes: "not", desc: "완료 단어 미포함" },
   ];
 
   const includesButtons = includes.map((includesItem) => {
@@ -123,7 +123,7 @@ const TestSelect = () => {
   const { chapter } = useParams();
 
   return (
-    <TestCard>
+    <TestSelectCard>
       <TestSelectorBox>
         <p>테스트할 항목을 선택해주세요</p>
         <div className="test-selector">
@@ -139,7 +139,7 @@ const TestSelect = () => {
       >
         <CompleteButton>TEST!</CompleteButton>
       </Link>
-    </TestCard>
+    </TestSelectCard>
   );
 };
 
