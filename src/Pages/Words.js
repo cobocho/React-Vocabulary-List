@@ -43,7 +43,6 @@ const ShowButton = styled.button`
 `;
 
 const ChapterWords = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
   const { chapter } = useParams();
