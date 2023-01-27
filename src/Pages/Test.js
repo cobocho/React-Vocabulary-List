@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import ProgressBar from "../Components/TestWord/ProgressBar";
+import BigButton from "../Components/UI/Buttons/BigButton";
 import Card from "../Components/UI/Card";
+import UserInput from "../Components/UI/UserInput";
 
 const TestCard = styled(Card)`
   display: flex;
@@ -11,7 +12,29 @@ const TestCard = styled(Card)`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 400px;
+  height: 350px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form label {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  form input {
+    margin-bottom: 10px;
+  }
+`;
+
+const Quiz = styled.strong`
+  font-weight: 400;
+  font-size: 80px;
+
+  margin-bottom: 20px;
 `;
 
 const Test = () => {
@@ -21,8 +44,11 @@ const Test = () => {
   const finished = searchParams.get("finished");
 
   const [progress, setProgress] = useState(0);
+  const [results, setResults] = useState([]);
 
-  let quizList = useSelector((state) => state.chapter.chapters).filter(
+  console.log(results);
+
+  let quizList = JSON.parse(localStorage.getItem("chapters")).filter(
     (chapterItem) => {
       return chapterItem.title === chapter;
     }
@@ -34,11 +60,47 @@ const Test = () => {
     });
   }
 
-  console.log(quizList);
+  let quiz;
+  let answer;
+
+  if (type === "meaning") {
+    quiz = quizList[progress]["word"];
+    answer = quizList[progress]["meaning"];
+  } else if (type === "word") {
+    quiz = quizList[progress]["meaning"];
+    answer = quizList[progress]["word"];
+  } else if (type === "random") {
+    const randomValue = Math.round(Math.random() * 1);
+    randomValue === 1
+      ? (quiz = quizList[progress]["meaning"])
+      : (quiz = quizList["word"]);
+    randomValue === 1
+      ? (answer = quizList[progress]["word"])
+      : (answer = quizList["meaning"]);
+  }
+
+  console.log(quiz, answer);
+
+  const answerRef = useRef();
+
+  const submitAnswerHandler = (event) => {
+    event.preventDefault();
+    const userAnswer = answerRef.current.value;
+    const result = { ...quizList[progress], correct: userAnswer === answer };
+    console.log("result", result);
+    setResults((state) => (state = [...state, result]));
+    setProgress((state) => (state = state + 1));
+  };
 
   return (
     <TestCard>
-      <ProgressBar progress={2} entire={10} />
+      <ProgressBar progress={progress} entire={quizList.length} />
+      <Quiz>{quiz}</Quiz>
+      <form onSubmit={submitAnswerHandler}>
+        <label htmlFor="test-answer">정답</label>
+        <UserInput ref={answerRef} id="test-answer" />
+        <BigButton type="submit">제출</BigButton>
+      </form>
     </TestCard>
   );
 };

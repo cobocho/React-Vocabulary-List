@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import BasicButton from "../Components/UI/Buttons/BasicButton";
+import BigButton from "../Components/UI/Buttons/BigButton";
 import Card from "../Components/UI/Card";
 
 const TestSelectCard = styled(Card)`
@@ -48,24 +48,7 @@ const TestSelectorBox = styled.div`
   }
 `;
 
-const TestSelectButton = styled(BasicButton).attrs({
-  className: "test-type-btn",
-})`
-  width: auto;
-  padding: 10px;
-  height: 50px;
-
-  background-color: #a0a0a0;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  &:hover {
-    background-color: #6c6c6c;
-  }
-`;
-
-const CompleteButton = styled(TestSelectButton)`
+const CompleteButton = styled(BigButton)`
   font-size: 40px;
   height: 63px;
   background-color: #bbbbbb;
@@ -91,14 +74,14 @@ const TestSelect = () => {
 
   const typeButtons = testTypes.map((typeItem) => {
     return (
-      <TestSelectButton
+      <BigButton
         key={typeItem.type}
         value={typeItem.type}
         onClick={typeClickHandler}
         className={typeItem.type === testType && "selected"}
       >
         {typeItem.desc}
-      </TestSelectButton>
+      </BigButton>
     );
   });
 
@@ -109,14 +92,14 @@ const TestSelect = () => {
 
   const includesButtons = includes.map((includesItem) => {
     return (
-      <TestSelectButton
+      <BigButton
         key={includesItem.includes}
         value={includesItem.includes}
         onClick={includesClickHandler}
         className={includesItem.includes === finishedIncludes && "selected"}
       >
         {includesItem.desc}
-      </TestSelectButton>
+      </BigButton>
     );
   });
 

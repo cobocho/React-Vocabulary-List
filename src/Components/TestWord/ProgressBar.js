@@ -5,6 +5,8 @@ const ProgressBox = styled.div`
   flex-direction: column;
   align-items: center;
 
+  margin-bottom: 20px;
+
   p {
     font-weight: 500;
     font-size: 14px;
@@ -18,6 +20,7 @@ const ProgressBarBackground = styled.div`
   height: 20px;
   border-radius: 12px;
   background-color: #eeeeee;
+  overflow: hidden;
 `;
 
 const ProgressBarFill = styled(ProgressBarBackground)`
