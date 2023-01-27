@@ -5,6 +5,7 @@ import ProgressBar from "../Components/TestWord/ProgressBar";
 import BigButton from "../Components/UI/Buttons/BigButton";
 import Card from "../Components/UI/Card";
 import UserInput from "../Components/UI/UserInput";
+import NotFound from "./NotFound";
 
 const TestCard = styled(Card)`
   display: flex;
@@ -46,6 +47,20 @@ const Test = () => {
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState([]);
 
+  const answerRef = useRef();
+
+  const navigate = useNavigate();
+
+  const existentChapter = JSON.parse(localStorage.getItem("chapters")).some(
+    (chapterItem) => {
+      return chapterItem.title === chapter;
+    }
+  );
+
+  if (!existentChapter) {
+    return <NotFound />;
+  }
+
   let quizList = JSON.parse(localStorage.getItem("chapters")).filter(
     (chapterItem) => {
       return chapterItem.title === chapter;
@@ -76,10 +91,6 @@ const Test = () => {
       ? (answer = quizList[progress]?.["word"])
       : (answer = quizList[progress]?.["meaning"]);
   }
-
-  const answerRef = useRef();
-
-  const navigate = useNavigate();
 
   const submitAnswerHandler = (event) => {
     event.preventDefault();

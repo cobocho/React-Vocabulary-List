@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import BigButton from "../Components/UI/Buttons/BigButton";
 import Card from "../Components/UI/Card";
+import NotFound from "./NotFound";
 
 const TestSelectCard = styled(Card)`
   display: flex;
@@ -104,6 +105,16 @@ const TestSelect = () => {
   });
 
   const { chapter } = useParams();
+
+  const existentChapter = JSON.parse(localStorage.getItem("chapters")).some(
+    (chapterItem) => {
+      return chapterItem.title === chapter;
+    }
+  );
+
+  if (!existentChapter) {
+    return <NotFound />;
+  }
 
   return (
     <TestSelectCard>
