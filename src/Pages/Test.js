@@ -67,6 +67,14 @@ const Test = () => {
     }
   )[0].words;
 
+  if (progress === quizList.length) {
+    return (
+      <TestCard>
+        <ProgressBar progress={progress} entire={quizList.length} />
+      </TestCard>
+    );
+  }
+
   if (finished === "not") {
     quizList = quizList.filter((quiz) => {
       return quiz.finished === false;
@@ -99,7 +107,11 @@ const Test = () => {
     answerRef.current.value = "";
     setResults((state) => (state = [...state, result]));
     setProgress((state) => (state = state + 1));
-    if (progress + 1 === quizList.length) navigate("/result");
+    if (progress + 1 === quizList.length) {
+      setTimeout(() => {
+        navigate("/result");
+      }, 1000);
+    }
   };
 
   return (
