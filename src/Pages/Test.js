@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import ProgressBar from "../Components/TestWord/ProgressBar";
 import BigButton from "../Components/UI/Buttons/BigButton";
@@ -46,8 +46,6 @@ const Test = () => {
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState([]);
 
-  console.log(results);
-
   let quizList = JSON.parse(localStorage.getItem("chapters")).filter(
     (chapterItem) => {
       return chapterItem.title === chapter;
@@ -64,32 +62,33 @@ const Test = () => {
   let answer;
 
   if (type === "meaning") {
-    quiz = quizList[progress]["word"];
-    answer = quizList[progress]["meaning"];
+    quiz = quizList[progress]?.["word"];
+    answer = quizList[progress]?.["meaning"];
   } else if (type === "word") {
-    quiz = quizList[progress]["meaning"];
-    answer = quizList[progress]["word"];
+    quiz = quizList[progress]?.["meaning"];
+    answer = quizList[progress]?.["word"];
   } else if (type === "random") {
     const randomValue = Math.round(Math.random() * 1);
     randomValue === 1
-      ? (quiz = quizList[progress]["meaning"])
-      : (quiz = quizList["word"]);
+      ? (quiz = quizList[progress]?.["meaning"])
+      : (quiz = quizList[progress]?.["word"]);
     randomValue === 1
-      ? (answer = quizList[progress]["word"])
-      : (answer = quizList["meaning"]);
+      ? (answer = quizList[progress]?.["word"])
+      : (answer = quizList[progress]?.["meaning"]);
   }
 
-  console.log(quiz, answer);
-
   const answerRef = useRef();
+
+  const navigate = useNavigate();
 
   const submitAnswerHandler = (event) => {
     event.preventDefault();
     const userAnswer = answerRef.current.value;
     const result = { ...quizList[progress], correct: userAnswer === answer };
-    console.log("result", result);
+    answerRef.current.value = "";
     setResults((state) => (state = [...state, result]));
     setProgress((state) => (state = state + 1));
+    if (progress + 1 === quizList.length) navigate("/result");
   };
 
   return (
