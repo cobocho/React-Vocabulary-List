@@ -1,5 +1,5 @@
 import "./App.css";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Header from "./Components/Header/Header";
 import Chapters from "./Components/Chapters/Chapters";
@@ -21,7 +21,7 @@ function App() {
         <Chapters className="chapters" />
         <main>
           <Routes>
-            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/" element={<></>} />
             <Route path="/home" element={<Home />} />
             <Route path="/:chapter" element={<Words />}>
               <Route path="edit" element={<WordGenerator />} />

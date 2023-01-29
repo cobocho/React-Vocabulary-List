@@ -39,7 +39,7 @@ const Quiz = styled.strong`
 `;
 
 const Test = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { chapter } = useParams();
   const type = searchParams.get("type");
   const finished = searchParams.get("finished");
@@ -67,18 +67,22 @@ const Test = () => {
     }
   )[0].words;
 
+  if (finished === "not") {
+    quizList = quizList.filter((quiz) => {
+      return quiz.finished === false;
+    });
+  }
+
   if (progress === quizList.length) {
+    console.log(results);
+    setTimeout(() => {
+      navigate("/result");
+    }, 1000);
     return (
       <TestCard>
         <ProgressBar progress={progress} entire={quizList.length} />
       </TestCard>
     );
-  }
-
-  if (finished === "not") {
-    quizList = quizList.filter((quiz) => {
-      return quiz.finished === false;
-    });
   }
 
   let quiz;
@@ -102,16 +106,15 @@ const Test = () => {
 
   const submitAnswerHandler = (event) => {
     event.preventDefault();
-    const userAnswer = answerRef.current.value;
-    const result = { ...quizList[progress], correct: userAnswer === answer };
+    const userInput = answerRef.current.value;
+    const result = {
+      ...quizList[progress],
+      correct: userInput === answer,
+      userInput,
+    };
     answerRef.current.value = "";
     setResults((state) => (state = [...state, result]));
     setProgress((state) => (state = state + 1));
-    if (progress + 1 === quizList.length) {
-      setTimeout(() => {
-        navigate("/result");
-      }, 1000);
-    }
   };
 
   return (
