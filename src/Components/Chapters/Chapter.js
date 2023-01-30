@@ -62,6 +62,7 @@ const Chapter = ({ title, finished, amount }) => {
     event.stopPropagation();
     event.preventDefault();
     const changedTitle = prompt("수정할 타이틀");
+    if (!changedTitle) return;
     dispatch(
       chapterActions.changeChapterTtile({ existingTitle: title, changedTitle })
     );
