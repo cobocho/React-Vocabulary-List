@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import ProgressBar from "../Components/TestWord/ProgressBar";
 import BigButton from "../Components/UI/Buttons/BigButton";
 import Card from "../Components/UI/Card";
 import UserInput from "../Components/UI/UserInput";
+import { testActions } from "../store/test-slice";
 import NotFound from "./NotFound";
 
 const TestCard = styled(Card)`
@@ -41,6 +43,7 @@ const Quiz = styled.strong`
 const Test = () => {
   const [searchParams] = useSearchParams();
   const { chapter } = useParams();
+  const dispatch = useDispatch();
   const type = searchParams.get("type");
   const finished = searchParams.get("finished");
 
@@ -75,6 +78,7 @@ const Test = () => {
 
   if (progress === quizList.length) {
     console.log(results);
+    dispatch(testActions.setTestResult(results));
     setTimeout(() => {
       navigate("/result");
     }, 1000);
