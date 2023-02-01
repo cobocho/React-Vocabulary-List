@@ -50,13 +50,14 @@ const ChapterCard = styled(Card)`
 const Chapter = ({ title, finished, amount }) => {
   const dispatch = useDispatch();
 
+  const { search } = useLocation();
+  const navigate = useNavigate();
+
   const onDeleteChapter = (event) => {
     event.stopPropagation();
     dispatch(chapterActions.deleteChapter(title));
+    navigate("/");
   };
-
-  const { search } = useLocation();
-  const navigate = useNavigate();
 
   const onEditChapter = (event) => {
     event.stopPropagation();

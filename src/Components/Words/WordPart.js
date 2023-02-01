@@ -23,6 +23,10 @@ const WordPart = ({ type, desc }) => {
 
   const clickhandler = (event) => {
     event.preventDefault();
+    if (type === selectedPart) {
+      dispatch(wordActions.setSelectedPart(null));
+      return;
+    }
     dispatch(wordActions.setSelectedPart(type));
   };
 

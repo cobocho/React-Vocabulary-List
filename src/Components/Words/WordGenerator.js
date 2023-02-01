@@ -87,7 +87,7 @@ const WordGenerator = () => {
   const part = useSelector((state) => state.word.selectedPart);
 
   const addWordHandler = () => {
-    if (!title || !word || !meaning) {
+    if (!part || !word || !meaning) {
       alert("모든 값을 입력해주세요!");
       return;
     }
@@ -98,6 +98,8 @@ const WordGenerator = () => {
       finished: false,
     };
     dispatch(chapterActions.addWord({ title, addedWord }));
+    wordRef.current.value = "";
+    meaningRef.current.value = "";
   };
 
   return (
