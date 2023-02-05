@@ -100,6 +100,7 @@ const WordGenerator = () => {
     dispatch(chapterActions.addWord({ title, addedWord }));
     wordRef.current.value = "";
     meaningRef.current.value = "";
+    wordRef.current.focus();
   };
 
   return (
