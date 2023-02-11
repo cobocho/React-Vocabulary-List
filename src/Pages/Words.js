@@ -58,10 +58,13 @@ const ChapterWords = () => {
     else navigate(`edit${search}`);
   };
 
-  const isShowAll = JSON.parse(searchParams.get("showAll"));
+  const isShowAll = searchParams.get("showAll") === "on" ? true : false;
 
   const toggleShowHandler = () => {
-    setSearchParams({ showAll: !isShowAll });
+    let changedShowAll;
+    if (isShowAll === true) changedShowAll = "off";
+    else changedShowAll = "on";
+    setSearchParams({ showAll: changedShowAll });
   };
 
   const existentChapter = chapters.some((chapterItem) => {
